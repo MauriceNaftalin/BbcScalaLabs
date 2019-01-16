@@ -1,8 +1,8 @@
-package labanswers.lab1a
+package labanswers.lab2a
 
 abstract class Length(value: Double) extends Ordered[Length] {
   val conversion: Double
-  private[lab1a] def metre = Metre(value / conversion)
+  private[lab2a] def metre = Metre(value / conversion)
   def compare(that: Length): Int = metre.compare(that.metre)
   def toCentimetres: Centimetre = Centimetre(value / conversion)
   def toMetres: Metre = Metre(value / conversion)
@@ -27,19 +27,17 @@ case class Kilometre(value: Double) extends Length(value: Double) {
   def +(other: Length): Kilometre = new Kilometre(metre + other.metre)
 }
 
-object lab1a {
+object lab2a2 {
+  implicit class IntOps ( i: Int ) {
+    def cm: Centimetre = Centimetre(i)
+  }
   def main(args: Array[String]): Unit = {
-    val cm1 = Centimetre(3)
-    val cm2 = Centimetre(2)
+    val cm1 = 3 cm
+    val cm2 = 2 cm;
     println(cm1 + cm2)
     println(cm1.compare(Kilometre(2)))
     println(Metre(1).compare(cm1))
     println(cm2 + Kilometre(3))
-
-    // use function in package object
-    println(convertCentimetersToKilometre(cm2))
-
-    // same function, implemented as a method of the unit class
     println(cm1.toKilometres)
   }
 }
